@@ -1,9 +1,11 @@
 module Risk.World where
 
+import Risk.Types
+
 data Region = Region
     { continentName    :: String
     , continentWeight  :: Int
-    , continentRegions :: [String]
+    , continentRegions :: [Region]
     }
 
 allRegions = [ northAmerica, southAmerica,  europe, africa, asia, australia ]

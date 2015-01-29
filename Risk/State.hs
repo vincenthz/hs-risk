@@ -21,7 +21,7 @@ zipCurrent (Zipper _ (x:_)) = x
 --------------------------------
 
 data State = State
-    { worldMap :: M.Map String (Player, Units)
+    { worldMap :: M.Map Region (Player, Units)
     , players  :: Zipper Player
     }
 
