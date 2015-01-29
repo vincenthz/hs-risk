@@ -31,3 +31,11 @@ initialState players =
         { worldMap = M.fromList $ map (\r -> (r, (PlayerRed, 0))) $ concatMap continentRegions $ allRegions
         , players  = zipFromList players
         }
+
+stSetRegion :: Region -> Player -> Units -> State -> State
+stSetRegion region player nbUnits st =
+    st { worldMap = M.adjust (const (player, nbUnits)) region (worldMap st) }
+
+stGetRegion :: Region -> State -> Maybe (Player, Units)
+stGetRegion region =
+    M.lookup region (stWorldMap st)
