@@ -3,3 +3,6 @@
 *.tix
 *.mix
 dist
+
+.cabal-sandbox/
+cabal.sandbox.config
