@@ -37,7 +37,6 @@ europe = Region "Europe" 5
     , "Western Europe"
     ]
 
-
 africa = Region "Africa" 3
     [ "Congo"
     , "East Africa"
