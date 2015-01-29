@@ -1,10 +1,10 @@
 module Risk.Types
     ( Player(..)
-    , Region
+    , RegionName
     , Units
     ) where
 
-type Region = String
+type RegionName = String
 
 type Units = Int
 

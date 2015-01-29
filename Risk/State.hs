@@ -11,7 +11,7 @@ zipFromList :: [a] -> Zipper a
 zipFromList [] = error "cannot create zipper of empty list"
 zipFromList l = Zipper [] l
 
-zipNext (Zipper p [])     = zipNext [] (reverse p)
+zipNext (Zipper p [])     = Zipper [] (reverse p)
 zipNext (Zipper p (x:xs)) = Zipper (x:p) xs
 
 zipAtEnd (Zipper p l) = length l == 1
@@ -21,21 +21,20 @@ zipCurrent (Zipper _ (x:_)) = x
 --------------------------------
 
 data State = State
-    { worldMap :: M.Map Region (Player, Units)
+    { worldMap :: M.Map RegionName (Player, Units)
     , players  :: Zipper Player
     }
 
-initialState :: [Player] ->
+initialState :: [Player] -> State
 initialState players =
     State
         { worldMap = M.fromList $ map (\r -> (r, (PlayerRed, 0))) $ concatMap continentRegions $ allRegions
         , players  = zipFromList players
         }
 
-stSetRegion :: Region -> Player -> Units -> State -> State
+stSetRegion :: RegionName -> Player -> Units -> State -> State
 stSetRegion region player nbUnits st =
     st { worldMap = M.adjust (const (player, nbUnits)) region (worldMap st) }
 
-stGetRegion :: Region -> State -> Maybe (Player, Units)
-stGetRegion region =
-    M.lookup region (stWorldMap st)
+stGetRegion :: RegionName -> State -> Maybe (Player, Units)
+stGetRegion region st = M.lookup region (worldMap st)
